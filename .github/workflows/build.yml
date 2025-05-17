@@ -15,19 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-#    - uses: actions/setup-python@v5
 
     - name: Install dependencies
-      run: sudo apt install valac libgtk-4-dev libsoup-3.0-dev libjson-glib-dev
+      run: sudo apt install valac ninja-build meson libgtk-4-dev libsoup-3.0-dev libjson-glib-dev -y
 
-    - name: Vala Compiler Version
-      run: valac --version
+    - name: Tool Versions
+      run: valac --version && meson --version && ninja --version
 
     - name: Valac Compile
       run: valac --pkg gtk4 --pkg libsoup-3.0 --pkg json-glib-1.0 src/*.vala --output=ukcrime-gtk4
-
-    - name: Install Meson
-      run: sudo apt install ninja-build meson -y
 
     - name: Meson Compile
       run: meson setup build --reconfigure && meson compile -C build
