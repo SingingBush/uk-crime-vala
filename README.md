@@ -7,11 +7,14 @@ More info about Vala can be found on the [Vala documentation site](https://docs.
 
 Also, there is a book named [Introducing Vala Programming](https://www.apress.com/9781484253793) which has [accompanying code on GitHub](https://github.com/Apress/introducing-vala-programming).
 
-```
-sudo dnf install gtk4-devel libsoup3-devel -y
-```
 
 # Compiling
+
+You'll need a few dependencies as well as the Vala comiler and [Meson](https://mesonbuild.com).
+
+```
+sudo dnf install gtk4-devel libsoup3-devel json-glib-devel -y
+```
 
 The project is built using [Meson](https://mesonbuild.com)
 
