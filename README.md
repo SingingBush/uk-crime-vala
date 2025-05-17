@@ -1,6 +1,8 @@
 UK Crime (Vala & GTK4)
 ======================
 
+[![build](https://github.com/SingingBush/uk-crime-vala/actions/workflows/build.yml/badge.svg)](https://github.com/SingingBush/uk-crime-vala/actions/workflows/build.yml)
+
 This project demonstrates how to use GTK4 with Vala. It makes use of the UK Police API to view information about various police forces and shows locations of recent crimes using a map view. It's a port of a Java equivelant: [uk-crime-javafx](https://github.com/SingingBush/uk-crime-javafx).
 
 More info about Vala can be found on the [Vala documentation site](https://docs.vala.dev/). GTK 4 documentation can be found [here](https://docs.gtk.org/gtk4/index.html).
