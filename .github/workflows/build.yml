@@ -14,10 +14,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Install dependencies
-      run: sudo apt install valac ninja-build meson libgtk-4-dev libsoup-3.0-dev libjson-glib-dev -y
+      run: |
+        sudo apt update
+        sudo apt install valac ninja-build meson libgtk-4-dev libsoup-3.0-dev libjson-glib-dev -y
 
     - name: Tool Versions
       run: valac --version && meson --version && ninja --version
