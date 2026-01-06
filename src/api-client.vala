@@ -3,12 +3,18 @@ using GLib;
 using Json;
 using Soup;
 
+const string DEFAULT_BASE_URL = "https://data.police.uk/api";
+
 class PoliceApi {
 
-    private const string API_BASE = "https://data.police.uk/api";
+    private string baseUrl;
+
+    public PoliceApi (string baseUrl = DEFAULT_BASE_URL) {
+        this.baseUrl = baseUrl;
+    }
 
     public GLib.List<PoliceForce> getAllPoliceForces() throws GLib.Error {
-        string url = "%s/forces".printf (API_BASE);
+        string url = "%s/forces".printf (this.baseUrl);
         string json_body = makeGetRequest(url);
 
         Json.Parser p = new Json.Parser();
@@ -26,7 +32,7 @@ class PoliceApi {
     }
 
     public PoliceForceDetails getPoliceForceById(string policeForceId) throws GLib.Error {
-        string url = "%s/forces/%s".printf (API_BASE, policeForceId);
+        string url = "%s/forces/%s".printf (this.baseUrl, policeForceId);
 
         string json_body = makeGetRequest(url);
         

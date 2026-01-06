@@ -1,0 +1,25 @@
+{
+    "name": "forces",
+    "request": {
+        "method": "GET",
+        "url": "/api/forces"
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": [
+            {
+                "id": "one",
+                "name": "Mock Force One",
+                "url": "test url"
+            },
+            {
+                "id": "two",
+                "name": "Mock Force Two",
+                "url": "test url"
+            }
+        ],
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

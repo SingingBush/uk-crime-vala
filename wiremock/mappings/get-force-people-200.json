@@ -1,0 +1,19 @@
+{
+    "name": "forces",
+    "request": {
+        "method": "GET",
+        "url": "/api/forces/FORCE-ID/people"
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": [
+            {
+                "name": "Bobby",
+                "rank": "Flat Foot"
+            }
+        ],
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

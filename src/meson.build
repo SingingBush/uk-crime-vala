@@ -5,10 +5,12 @@ deps = [
     # dependency('shumate-1.0') # Maps
 ]
 
-sources = files(
-    'app.vala',
+core_sources = files(
     'model.vala',
     'api-client.vala'
+)
+sources = core_sources + files(
+    'app.vala'
 )
 
 executable(

@@ -1,0 +1,10 @@
+# stubs for the UK Police API using WireMock
+services:
+  wiremock:
+    image: "wiremock/wiremock:latest-alpine"
+    ports:
+      - "8080:8080"
+    container_name: vala_wiremock
+    volumes:
+      - ./wiremock:/home/wiremock:ro,z
+    entrypoint: ["/docker-entrypoint.sh", "--global-response-templating", "--disable-gzip", "--verbose"]

@@ -1,0 +1,24 @@
+{
+    "name": "forces",
+    "request": {
+        "method": "GET",
+        "url": "/api/forces/FORCE-ID/neighbourhoods"
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": [
+            {
+                "id": "FORCE-ID",
+                "name": "Test Force Name",
+                "description": "blah blah blah",
+                "centre": {
+                    "latitude": "12345",
+                    "longitude": "12345"
+                }
+            }
+        ],
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

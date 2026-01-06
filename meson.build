@@ -13,7 +13,11 @@ id = 'com.singingbush.ukcrime'
 output_name = 'ukcrime-gtk4'
 version = meson.project_version()
 
+#glib = dependency('glib-2.0', version: '>=2.40')
+#gobject = dependency('gobject-2.0', version: '>=2.40')
+
 subdir('src')
+subdir('tests')
 
 # Include the translations module
 #i18n = import('i18n')

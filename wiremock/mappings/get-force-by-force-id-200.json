@@ -1,0 +1,20 @@
+{
+    "name": "forces",
+    "request": {
+        "method": "GET",
+        "url": "/api/forces/FORCE-ID"
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": {
+            "id": "FORCE-ID",
+            "name": "Test County",
+            "url": "test url",
+            "telephone": "999",
+            "description": "<p>A test description</p>"
+        },
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}
