@@ -17,17 +17,13 @@ jobs:
     services:
       wiremock:
         image: wiremock/wiremock:latest-alpine
-        # ports: [8080]
+        ports: [8080]
         # volumes: ./wiremock:/home/wiremock:ro,z
-        ports:
-          - "8080:8080"
-          - "8443:8443"
-        volumes:
-          - ./wiremock:/home/wiremock:ro,z
         # # --volume wiremock:/home/wiremock:ro,z
         # Set health checks to wait until wiremock has started
         # --health-cmd ""
         options: >-
+          --volume wiremock:/home/wiremock:ro,z
           --global-response-templating
           --disable-gzip
           --verbose
