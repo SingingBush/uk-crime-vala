@@ -29,11 +29,12 @@ jobs:
           --global-response-templating
           --disable-gzip
           --verbose
-        health-check:
-          # test: ["CMD", "curl", "-f", "http://localhost:8080/__admin/"]
-          interval: 5s
-          timeout: 2s
-          retries: 3
+        # Set health checks to wait until wiremock has started
+        # --health-cmd ""
+        options: >-
+          --health-interval 5s
+          --health-timeout 2s
+          --health-retries 3
 
     steps:
     - uses: actions/checkout@v6
