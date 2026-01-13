@@ -13,6 +13,28 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      wiremock:
+        image: wiremock/wiremock:latest-alpine
+        # ports: [8080]
+        # volumes: ./wiremock:/home/wiremock:ro,z
+        ports:
+          - "8080:8080"
+          - "8443:8443"
+        volumes:
+          - ./wiremock:/home/wiremock:ro,z
+        # # --volume wiremock:/home/wiremock:ro,z
+        options: >-
+          --global-response-templating
+          --disable-gzip
+          --verbose
+        health-check:
+          # test: ["CMD", "curl", "-f", "http://localhost:8080/__admin/"]
+          interval: 5s
+          timeout: 2s
+          retries: 3
+
     steps:
     - uses: actions/checkout@v6
 
@@ -30,11 +52,8 @@ jobs:
     - name: Meson Compile
       run: meson setup build --reconfigure && meson compile -C build
 
-#    - name: Meson
-#      uses: BSFishy/meson-build@v1
-#      with:
-#        action: build
-#        directory: build
-#        options: --verbose
-#        meson-version: 1.7.0
-#        ninja-version: 1.11.1.4
+    - name: Run Tests
+      run: ninja -C build test
+      env:
+        WIREMOCK_PORT: ${{ job.services.wiremock.ports[8080] }}
+
