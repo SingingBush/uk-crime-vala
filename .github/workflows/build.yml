@@ -25,13 +25,12 @@ jobs:
         volumes:
           - ./wiremock:/home/wiremock:ro,z
         # # --volume wiremock:/home/wiremock:ro,z
+        # Set health checks to wait until wiremock has started
+        # --health-cmd ""
         options: >-
           --global-response-templating
           --disable-gzip
           --verbose
-        # Set health checks to wait until wiremock has started
-        # --health-cmd ""
-        options: >-
           --health-interval 5s
           --health-timeout 2s
           --health-retries 3
