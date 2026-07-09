@@ -1,5 +1,10 @@
 name: build
 
+permissions:
+  # The Junit report needs write permission
+  checks: write
+  pull-requests: write
+
 on:
   workflow_dispatch:
   push:
@@ -13,6 +18,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      wiremock:
+        image: wiremock/wiremock:latest-alpine
+        ports: [8080]
+        options: >-
+          --name wiremock
+          --hostname wiremock
+          --health-interval 5s
+          --health-timeout 2s
+          --health-retries 3
+
     steps:
     - uses: actions/checkout@v6
 
@@ -30,11 +47,32 @@ jobs:
     - name: Meson Compile
       run: meson setup build --reconfigure && meson compile -C build
 
-#    - name: Meson
-#      uses: BSFishy/meson-build@v1
-#      with:
-#        action: build
-#        directory: build
-#        options: --verbose
-#        meson-version: 1.7.0
-#        ninja-version: 1.11.1.4
+    - name: Setup Wiremock Mappings
+      uses: singingbush/setup-wiremock-stubs-action@0.1
+      with:
+        port: ${{ job.services.wiremock.ports['8080'] }}
+        mappings: ${{ github.workspace }}/wiremock/mappings
+
+    - name: Run Tests
+      run: ninja -C build test
+      env:
+        WIREMOCK_PORT: ${{ job.services.wiremock.ports[8080] }}
+
+    - name: Publish Test Report
+      if: always() # always run even if the previous step fails
+      uses: mikepenz/action-junit-report@v6
+      with:
+        report_paths: '**/build/meson-logs/testlog.junit.xml'
+        comment: true
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: build-artifacts
+        path: ukcrime-gtk4
+          # build/meson-logs/testlog.*
+        retention-days: 2
+        if-no-files-found: error
+
+    - name: Output artifact ID
+      run:  echo 'Artifact ID is ${{ steps.upload-artifacts.outputs.artifact-id }}'

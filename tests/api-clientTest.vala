@@ -3,7 +3,8 @@ using GLib;
 private const string TEST_FORCE_ID = "FORCE-ID";
 
 public void test_getAllPoliceForces () {
-    var api = new PoliceApi ("http://localhost:8080/api");
+    var port = Environment.get_variable ("WIREMOCK_PORT") ?? "8080";
+    var api = new PoliceApi ("http://localhost:" + port + "/api");
     
     var result = api.getAllPoliceForces ();
     assert_nonnull (result);
@@ -18,7 +19,8 @@ public void test_getAllPoliceForces () {
 }
 
 public void test_getPoliceForceById () {
-    var api = new PoliceApi ("http://localhost:8080/api");
+    var port = Environment.get_variable ("WIREMOCK_PORT") ?? "8080";
+    var api = new PoliceApi ("http://localhost:" + port + "/api");
 
     var result = api.getPoliceForceById (TEST_FORCE_ID);
     assert_nonnull (result);
