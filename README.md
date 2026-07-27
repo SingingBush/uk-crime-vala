@@ -7,6 +7,8 @@ This project demonstrates how to use GTK4 with Vala. It makes use of the UK Poli
 
 More info about Vala can be found on the [Vala documentation site](https://docs.vala.dev/). GTK 4 documentation can be found [here](https://docs.gtk.org/gtk4/index.html).
 
+There's also some good information on the now retired [Gnome Wiki](https://wiki.gnome.org/Projects/Vala/Tutorial)
+
 Also, there is a book named [Introducing Vala Programming](https://www.apress.com/9781484253793) which has [accompanying code on GitHub](https://github.com/Apress/introducing-vala-programming).
 
 
@@ -15,7 +17,7 @@ Also, there is a book named [Introducing Vala Programming](https://www.apress.co
 You'll need a few dependencies as well as the Vala comiler and [Meson](https://mesonbuild.com).
 
 ```
-sudo dnf install gtk4-devel libsoup3-devel json-glib-devel -y
+sudo dnf install vala libvala gtk4-devel libsoup3-devel json-glib-devel -y
 ```
 
 The project is built using [Meson](https://mesonbuild.com)
