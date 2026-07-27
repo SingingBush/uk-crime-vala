@@ -10,6 +10,7 @@ core_sources = files(
     'api-client.vala'
 )
 sources = core_sources + files(
+    'main-window.vala',
     'app.vala'
 )
 
