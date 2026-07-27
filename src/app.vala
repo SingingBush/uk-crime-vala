@@ -18,6 +18,11 @@ public class UkCrimeApp : Gtk.Application {
         return app.run (args);
     }
 
+    protected override void startup () {
+        GLib.debug ("Starting UK Crime App");
+        base.startup();
+    }
+
     // The entry point for a GTK application
     protected override void activate () {
         // run the app with debug enabled: "G_MESSAGES_DEBUG=all ./ukcrime-gtk4"
@@ -32,5 +37,6 @@ public class UkCrimeApp : Gtk.Application {
     // performs shutdown tasks
     protected override void shutdown () {
         GLib.debug ("Shutting down UK Crime App");
+        base.shutdown();
     }
 }
