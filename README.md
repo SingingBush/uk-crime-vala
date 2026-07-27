@@ -7,6 +7,8 @@ This project demonstrates how to use GTK4 with Vala. It makes use of the UK Poli
 
 More info about Vala can be found on the [Vala documentation site](https://docs.vala.dev/). GTK 4 documentation can be found [here](https://docs.gtk.org/gtk4/index.html).
 
+There's also some good information on the now retired [Gnome Wiki](https://wiki.gnome.org/Projects/Vala/Tutorial)
+
 Also, there is a book named [Introducing Vala Programming](https://www.apress.com/9781484253793) which has [accompanying code on GitHub](https://github.com/Apress/introducing-vala-programming).
 
 
