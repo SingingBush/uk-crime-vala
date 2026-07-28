@@ -169,6 +169,11 @@ class MainWindow : ApplicationWindow {
             GLib.debug(@"Activate list item $(position) : $(pf.name)");
 
             load_force_details(pf.id);
+
+            // todo: load officers and neighbourhoods asynchronously
+            // GLib.List<SeniorOfficer> officers = this.api.getPoliceForceSeniorOfficers(pf);
+            // GLib.List<Neighbourhood> neighbourhoods = this.api.getPoliceForceNeighbourhoods(pf);
+            // GLib.info(@"API returned $(officers.length()) officers and $(neighbourhoods.length()) neighbourhoods");
         });
 
         return force_list;
@@ -200,6 +205,9 @@ class MainWindow : ApplicationWindow {
         this.forces_spinner.start();
 
         try {
+            // todo: display the date that data was last updated in the UI
+            // string month = this.api.getLastUpdatedDate();
+
             GLib.List<PoliceForce> forces = this.api.getAllPoliceForces();
             GLib.info("received %u forces from the API:", forces.length());
 
