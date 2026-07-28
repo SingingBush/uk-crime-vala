@@ -13,7 +13,7 @@ class PoliceApi {
         this.baseUrl = baseUrl;
     }
 
-    public GLib.List<PoliceForce> getAllPoliceForces() throws GLib.Error {
+    public owned GLib.List<PoliceForce> getAllPoliceForces() throws GLib.Error {
         string url = "%s/forces".printf (this.baseUrl);
         string json_body = makeGetRequest(url);
 
@@ -27,6 +27,8 @@ class PoliceApi {
             );
         });
         p.load_from_data(json_body, json_body.length);
+
+        GLib.info(@"API returned $(forces.length()) police forces");
             
         return (owned) forces;
     }
@@ -36,7 +38,11 @@ class PoliceApi {
 
         string json_body = makeGetRequest(url);
         
-        return Json.gobject_from_data(typeof(PoliceForceDetails), json_body, json_body.length) as PoliceForceDetails;
+        PoliceForceDetails details = Json.gobject_from_data(typeof(PoliceForceDetails), json_body, json_body.length) as PoliceForceDetails;
+
+        GLib.info("API returned details for %s : '(%s)'", policeForceId, details.name);
+
+        return details;
     }
 
     private string makeGetRequest(string url) throws GLib.Error {
