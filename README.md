@@ -17,7 +17,7 @@ Also, there is a book named [Introducing Vala Programming](https://www.apress.co
 You'll need a few dependencies as well as the Vala comiler and [Meson](https://mesonbuild.com).
 
 ```
-sudo dnf install vala libvala gtk4-devel libsoup3-devel json-glib-devel -y
+sudo dnf install vala libvala gtk4-devel libsoup3-devel json-glib-devel libgee-devel -y
 ```
 
 The project is built using [Meson](https://mesonbuild.com)
@@ -34,5 +34,5 @@ meson compile -C build
 To compile with the Vala Compiler directly use:
 
 ```
-valac --pkg gtk4 --pkg libsoup-3.0 --pkg json-glib-1.0 src/*.vala --output=ukcrime-gtk4
+valac --pkg gtk4 --pkg gee-0.8 --pkg libsoup-3.0 --pkg json-glib-1.0 src/*.vala --output=ukcrime-gtk4
 ```
