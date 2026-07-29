@@ -36,7 +36,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install valac ninja-build meson libgtk-4-dev libsoup-3.0-dev libjson-glib-dev -y
+        sudo apt install valac ninja-build meson libgtk-4-dev libgee-0.8-dev libsoup-3.0-dev libjson-glib-dev -y
 
     - name: Tool Versions
       run: valac --version && meson --version && ninja --version
