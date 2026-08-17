@@ -1,14 +1,21 @@
+using GLib;
 using Gtk;
 
 class MainWindow : ApplicationWindow {
 
     private const int DEFAULT_MARGIN = 10;
+    private const string SETTING_SELECTED_FORCE = "selected-force";
 
     private PoliceApi api;
+
+    private GLib.Settings? settings;
 
     // this list store will contain the data returned via API so that it can be rendered in to a ListView
     // Gtk.ListStore is deprecated so need to make sure to use a Gio.ListStore
     private GLib.ListStore forcesListStore = new GLib.ListStore(typeof (PoliceForce));
+
+    // the selection model needs to be accessible so that the currently selected model can be set/retrieved
+    private Gtk.SingleSelection selection_model;
 
     // UI widgets used across methods
 
@@ -28,6 +35,16 @@ class MainWindow : ApplicationWindow {
 
     public MainWindow (Gtk.Application app, PoliceApi api) {
         base.application = app;
+
+        // get the settings for 'com.singingbush.ukcrime' (defined in Meson build)
+        SettingsSchema? settings_schema = SettingsSchemaSource.get_default()?.lookup ("com.singingbush.ukcrime", false);
+        if (settings_schema != null) {
+            // attempt to load the settings. (GTK will abort if not found)
+            this.settings = new GLib.Settings("com.singingbush.ukcrime");
+            GLib.info("Settings found for 'com.singingbush.ukcrime'");
+        } else {
+            GLib.warning("Failed to load settings schema for 'com.singingbush.ukcrime'");
+        }
 
         // rather than passing the API client in perhaps worth having a background service that can also cache data.
         // see: https://docs.vala.dev/sample-code/gtk4-samples/synchronising-widgets.html
@@ -113,13 +130,16 @@ class MainWindow : ApplicationWindow {
 
         this.set_child (scroll_pane);
 
+        // connect handler for closing application window
+        base.close_request.connect (this.on_close);
+
         // Start loading forces
         this.load_forces_into_list_store();
     }
 
     private Gtk.ListView create_forces_list_view() {
         //var selection_model = new Gtk.NoSelection(this.forcesListStore);
-        var selection_model = new Gtk.SingleSelection (this.forcesListStore) {
+        this.selection_model = new Gtk.SingleSelection (this.forcesListStore) {
             autoselect = true,
             can_unselect = false
         };
@@ -218,9 +238,27 @@ class MainWindow : ApplicationWindow {
                 this.forcesListStore.append(pf);
             });
 
-            // on the initial load of police forces we should populate details section for 1st element in list
+            // on the initial load of police forces we should populate details section for either the last used or default to the 1st element in list
             if (forces.length() > 0) {
-                PoliceForce pf = forces.nth_data (0) as PoliceForce;
+                uint position = 0; // default to the first item in array
+
+                // if settings have been found, restore the last used police force id
+                if (this.settings != null) {
+                    string? last_used_id = this.settings.get_string(SETTING_SELECTED_FORCE);
+                    if(last_used_id != null) {
+                        PoliceForce f = new PoliceForce();
+                        f.id = last_used_id;
+                        f.name = "";
+
+                        if (this.forcesListStore.find_with_equal_func(f, (pf1, pf2) => (pf1 as PoliceForce).id == (pf2 as PoliceForce).id, out position)) {
+                            GLib.debug(@"selected-force $(last_used_id) restored at position: $(position)");
+                        }
+                    }
+                }
+
+                selection_model.selected = position;
+
+                PoliceForce pf = forces.nth_data (position) as PoliceForce;
                 load_force_details(pf.id);
             } else {
                 // todo: how to best indicate no forces from API?
@@ -232,5 +270,12 @@ class MainWindow : ApplicationWindow {
             this.details_text_view.buffer.text = e.message;
         }
 
+    }
+
+    private bool on_close () {
+        GLib.debug("Saving currently selected force to settings");
+        PoliceForce pf = this.forcesListStore.get_item(this.selection_model.selected) as PoliceForce;
+        this.settings.set_string(SETTING_SELECTED_FORCE, pf.id);
+        return false;
     }
 }
