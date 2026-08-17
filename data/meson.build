@@ -18,3 +18,18 @@ install_data(
     id + '.gschema.xml',
     install_dir: join_paths(get_option('datadir'), 'glib-2.0', 'schemas')
 )
+
+# Install our icons in all the required sizes
+icon_sizes = ['128']
+foreach i : icon_sizes
+    install_data(
+        'icon_' + i + '.svg',
+        install_dir: get_option('datadir') / 'icons' / 'hicolor' / i + 'x' + i / 'apps',
+        rename: id + '.svg'
+    )
+    # install_data(
+    #     'icon_' + i + '.svg',
+    #     install_dir: get_option('datadir') / 'icons' / 'hicolor' / i + 'x' + i + '@2' / 'apps',
+    #     rename: id + '.svg'
+    # )
+endforeach
