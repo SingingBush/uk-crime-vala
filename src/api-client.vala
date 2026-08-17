@@ -34,7 +34,7 @@ class PoliceApi {
      * @param policeForce the {@link PoliceForce}
      * @return a list of senior officers for the given police force
      */
-    public owned GLib.List<SeniorOfficer> getPoliceForceSeniorOfficers(PoliceForce policeForce) {
+    public owned GLib.List<SeniorOfficer> getPoliceForceSeniorOfficers(PoliceForce policeForce) throws GLib.Error {
         string json_body = makeGetRequest(@"$(this.baseUrl)/forces/$(policeForce.id)/people");
 
         Json.Parser p = new Json.Parser();
@@ -59,7 +59,7 @@ class PoliceApi {
      * @param policeForce the {@link PoliceForce}
      * @return a list of neighbourhoods
      */
-    public owned GLib.List<Neighbourhood> getPoliceForceNeighbourhoods(PoliceForce policeForce) {
+    public owned GLib.List<Neighbourhood> getPoliceForceNeighbourhoods(PoliceForce policeForce) throws GLib.Error{
         string json_body = makeGetRequest(@"$(this.baseUrl)/$(policeForce.id)/neighbourhoods");
 
         Json.Parser p = new Json.Parser();
@@ -85,7 +85,7 @@ class PoliceApi {
      * @param id the neighbourhood id
      * @return a neighbourhood by id
      */
-    public Neighbourhood getPoliceForceNeighbourhood(PoliceForce policeForce, string id) {
+    public Neighbourhood getPoliceForceNeighbourhood(PoliceForce policeForce, string id) throws GLib.Error {
         string json_body = makeGetRequest(@"$(this.baseUrl)/$(policeForce.id)/id");
         Neighbourhood neighbourhood = Json.gobject_from_data(typeof(Neighbourhood), json_body, json_body.length) as Neighbourhood;
 
@@ -94,7 +94,7 @@ class PoliceApi {
         return neighbourhood;
     }
 
-    public owned GLib.List<Crime> streetCrimeByLocation(string latitude, string longitude) {
+    public owned GLib.List<Crime> streetCrimeByLocation(string latitude, string longitude) throws GLib.Error {
         string json_body = makeGetRequest(@"$(this.baseUrl)/crimes-street/all-crime?lat=$(latitude)&lng=$(longitude)");
 
         Json.Parser p = new Json.Parser();

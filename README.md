@@ -36,3 +36,9 @@ To compile with the Vala Compiler directly use:
 ```
 valac --pkg gtk4 --pkg gee-0.8 --pkg libsoup-3.0 --pkg json-glib-1.0 src/*.vala --output=ukcrime-gtk4
 ```
+
+For compiling a binary to use with a debugger use:
+
+```
+valac -g --save-temps --pkg gtk4 --pkg gee-0.8 --pkg libsoup-3.0 --pkg json-glib-1.0 src/*.vala --output=ukcrime-gtk4-debug
+```
