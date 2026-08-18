@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE schemalist SYSTEM "https://gitlab.gnome.org/GNOME/glib/-/raw/HEAD/gio/gschema.dtd">
+<schemalist>
+  <schema id="com.singingbush.ukcrime" path="/com/singingbush/ukcrime/">
+
+    <key name="selected-force" type="s">
+      <default>''</default>
+      <summary>Selected Police Force</summary>
+      <description>The ID of the currently selected police force</description>
+    </key>
+
+  </schema>
+</schemalist>

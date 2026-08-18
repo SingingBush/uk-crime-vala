@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.singingbush.ukcrime</id>
+
+  <name>ukcrime</name>
+  <summary>View Crimes reported to UK Police</summary>
+
+  <metadata_license>Open Government Licence v3.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+
+  <description>
+    <p>A utility app for looking up crimes reported to the UK police</p>
+  </description>
+
+  <launchable type="desktop-id">com.singingbush.ukcrime.desktop</launchable>
+</component>

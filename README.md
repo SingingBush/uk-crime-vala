@@ -29,6 +29,10 @@ meson setup build --reconfigure
 meson compile -C build
 ```
 
+The compiled binary will be `./build/ukcrime-gtk4`
+
+To install to your system use `meson install -C build`
+
 ### Using valac directly
 
 To compile with the Vala Compiler directly use:
@@ -41,4 +45,11 @@ For compiling a binary to use with a debugger use:
 
 ```
 valac -g --save-temps --pkg gtk4 --pkg gee-0.8 --pkg libsoup-3.0 --pkg json-glib-1.0 src/*.vala --output=ukcrime-gtk4-debug
+```
+
+If the binary has been built without meson you should also install the gschema xml to `/usr/share/glib-2.0/schemas/` (meson handles this):
+
+```
+sudo cp data/com.singingbush.ukcrime.gschema.xml /usr/share/glib-2.0/schemas/
+glib-compile-schemas /usr/share/glib-2.0/schemas/
 ```
