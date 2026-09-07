@@ -36,13 +36,13 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install valac ninja-build meson libgtk-4-dev libgee-0.8-dev libsoup-3.0-dev libjson-glib-dev -y
+        sudo apt install valac ninja-build meson libgtk-4-dev libgee-0.8-dev libsoup-3.0-dev libjson-glib-dev libshumate-dev -y
 
     - name: Tool Versions
       run: valac --version && meson --version && ninja --version
 
     - name: Valac Compile
-      run: valac --pkg gtk4 --pkg gee-0.8 --pkg libsoup-3.0 --pkg json-glib-1.0 src/*.vala --output=ukcrime-gtk4
+      run: valac --pkg gtk4 --pkg gee-0.8 --pkg libsoup-3.0 --pkg json-glib-1.0 --pkg shumate-1.0 src/*.vala --output=ukcrime-gtk4
 
     - name: Meson Compile
       run: meson setup build --reconfigure && meson compile -C build

@@ -1,3 +1,4 @@
+using GLib;
 
 /**
  * base class for API data that has string values for id and name.
@@ -22,12 +23,21 @@ public class PoliceForceDetails : PoliceForce {
     public string description { get; set; } // either null or a description which may have basic html tags such as <p>
 }
 
+// only ID and Name are populated when getting a list of neighbourhoods
 public class Neighbourhood : NamedData {
     public string description { get; set; } // usually null
 
     public string population { get; set; }
 
     public string url_force { get; set; }
+
+    public Location centre { get; set; } // null when in a list of neighbourhoods
+
+    public Gee.HashMap<string,string> contact_details { get; set; }
+
+    //public GLib.List<Gee.HashMap<string,string>> links { get; set; }
+
+    //public GLib.List<Gee.HashMap<string,string>> locations { get; set; }
 }
 
 public class SeniorOfficer : GLib.Object {

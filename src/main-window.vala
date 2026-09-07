@@ -1,5 +1,6 @@
 using GLib;
 using Gtk;
+using Shumate;
 
 class MainWindow : ApplicationWindow {
 
@@ -29,6 +30,8 @@ class MainWindow : ApplicationWindow {
     private Gtk.Label details_title;
     private Gtk.Label details_police_force_link;
     private Gtk.TextView details_text_view;
+    private Shumate.SimpleMap map_widget;
+    private Shumate.MarkerLayer map_layer_crimes;
 
     //private Gtk.Button button;
     //private Gtk.Label label;
@@ -77,7 +80,10 @@ class MainWindow : ApplicationWindow {
         left_box.append(forces_list_view);
 
         // Right: details area with spinner
-        var details_panel = new Gtk.Box(Orientation.VERTICAL, DEFAULT_MARGIN);
+        var details_panel = new Gtk.Box(Orientation.VERTICAL, DEFAULT_MARGIN) {
+            margin_bottom = 20,
+            margin_end = DEFAULT_MARGIN,
+        };
 
         // potentially a Grid may be good for the details panel
         //  var grid  = new Grid();
@@ -117,6 +123,25 @@ class MainWindow : ApplicationWindow {
         details_panel.append(details_title);
         details_panel.append(details_text_view);
         details_panel.append(details_police_force_link);
+
+
+        // OpenStreetMap map widget will show an overlay with crime markers for the selected neighbourhood.
+        this.map_widget = new Shumate.SimpleMap() {
+            vexpand = true, // fill vertical space
+            show_zoom_buttons = false,
+            map_source = new MapSourceRegistry.with_defaults().get_by_id(Shumate.MAP_SOURCE_OSM_MAPNIK),
+        };
+
+        // default to London (trafagar square) as the initial location
+        Shumate.Coordinate london = new Coordinate.full (51.5074, -0.1278);
+
+        var viewport = this.map_widget.get_viewport();
+        viewport.set_location(london.latitude, london.longitude);
+        viewport.set_zoom_level(5.4); // 5.4 is the initial level, increase to 12.0 when an area is selected
+
+        this.map_layer_crimes = new Shumate.MarkerLayer.full(viewport, SelectionMode.NONE);
+
+        details_panel.append(this.map_widget);
 
         // Place left (list view) and right (details) boxes in a horizontal container
         var hbox = new Gtk.Box(Orientation.HORIZONTAL, DEFAULT_MARGIN);
@@ -201,6 +226,8 @@ class MainWindow : ApplicationWindow {
 
     // Load details for a force using async function
     private async void load_force_details (string id) {
+        this.map_layer_crimes.remove_all(); // clear crimes from the Map when a new force is selected
+
         this.details_spinner.start();
         this.details_title.set_text("Loading...");
 
@@ -212,6 +239,44 @@ class MainWindow : ApplicationWindow {
             this.details_police_force_link.label = @"url: $(details.url)" ?? "url: -";
             // todo: strip html tags from description
             this.details_text_view.buffer.text = details.description ?? "no description available";
+
+            GLib.List<Neighbourhood> neighbourhoods = this.api.getPoliceForceNeighbourhoods(id);
+            GLib.info("received %u neighbourhoods from the API:", neighbourhoods.length());
+            if (neighbourhoods.length() > 0) {
+                // todo: need to list the neighbourhoods in the UI and allow user to select one, for now just use the first one
+                Neighbourhood n = neighbourhoods.nth_data (0) as Neighbourhood;
+
+                // we'll only get location when calling for an individual neighbourhood, so call the API again
+                n = this.api.getPoliceForceNeighbourhood(id, n.id);
+
+                if (n.centre != null) {
+                    GLib.info("centroid for neighbourhood $(n.name) is: $(n.centre.latitude), $(n.centre.longitude)");
+
+                    // todo: cannot use center_on() with SimpleMap, switch to using a Map
+                    //this.map_widget.center_on(double.parse (n.centre.latitude), double.parse (n.centre.longitude));
+
+                    var viewport = this.map_widget.get_viewport();
+                    viewport.set_location(double.parse (n.centre.latitude), double.parse (n.centre.longitude));
+                    viewport.set_zoom_level(12.0);
+
+                    GLib.List<Crime> crimes = this.api.getStreetCrimeByLocation(n.centre.latitude, n.centre.longitude);
+
+                    crimes.foreach((c) => {
+                        GLib.debug("crime %u : %s", c.id, c.category);
+
+                        // todo: consider using a list store to cache the crime data
+                        this.map_layer_crimes.add_marker(new Point () {
+                            latitude = double.parse (c.location.latitude),
+                            longitude = double.parse (c.location.longitude),
+                        });
+                    });
+
+                    this.map_widget.add_overlay_layer(this.map_layer_crimes);
+                } else {
+                    GLib.warning("no centroid found for neighbourhood $(n.name)");
+                }
+            }
+
         } catch (Error e) {
             this.details_spinner.stop();
             this.details_title.set_text("Error");

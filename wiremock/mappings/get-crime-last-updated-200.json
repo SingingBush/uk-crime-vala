@@ -1,0 +1,16 @@
+{
+    "name": "Last updated",
+    "request": {
+        "method": "GET",
+        "url": "/api/crime-last-updated"
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": {
+            "date": "2026-07-01"
+        },
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

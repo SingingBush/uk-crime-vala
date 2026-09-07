@@ -1,5 +1,5 @@
 {
-    "name": "forces",
+    "name": "people",
     "request": {
         "method": "GET",
         "url": "/api/forces/FORCE-ID/people"
