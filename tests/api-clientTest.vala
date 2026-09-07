@@ -60,6 +60,8 @@ public void test_getPoliceForceNeighbourhood () {
     assert_cmpstr (result.centre.longitude, CompareOperator.EQ, "12345");
     assert_cmpstr (result.url_force, CompareOperator.EQ, "http://www.local.police.uk/town");
     assert_cmpstr (result.population, CompareOperator.EQ, "0");
+    //assert_nonnull (result.links);
+    //assert_nonnull (result.locations);
 }
 
 public void test_getStreetCrimeByLocation () {

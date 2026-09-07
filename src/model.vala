@@ -1,3 +1,4 @@
+using GLib;
 
 /**
  * base class for API data that has string values for id and name.
@@ -34,9 +35,9 @@ public class Neighbourhood : NamedData {
 
     public Gee.HashMap<string,string> contact_details { get; set; }
 
-    public Gee.List<Gee.HashMap<string,string>> links { get; set; }
+    //public GLib.List<Gee.HashMap<string,string>> links { get; set; }
 
-    public Gee.List<Gee.HashMap<string,string>> locations { get; set; }
+    //public GLib.List<Gee.HashMap<string,string>> locations { get; set; }
 }
 
 public class SeniorOfficer : GLib.Object {
