@@ -2,7 +2,15 @@
     "name": "crimes",
     "request": {
         "method": "GET",
-        "url": "/api/crimes-street/all-crime"
+        "urlPath": "/api/crimes-street/all-crime",
+        "queryParameters": {
+           "lat": {
+              "matches": ".*"
+           },
+           "lng": {
+              "matches": ".*"
+           }
+        }
     },
     "response": {
         "status": 200,

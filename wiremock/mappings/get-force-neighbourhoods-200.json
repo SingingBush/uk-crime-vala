@@ -1,5 +1,5 @@
 {
-    "name": "forces",
+    "name": "neighbourhood by id",
     "request": {
         "method": "GET",
         "url": "/api/forces/FORCE-ID/neighbourhoods"
