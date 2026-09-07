@@ -42,6 +42,8 @@ public void test_getPoliceForceNeighbourhoods () {
     assert_cmpstr (neighbourhood.name, CompareOperator.EQ, "Suburb Name");
     assert_null (neighbourhood.description);
     assert_null (neighbourhood.centre);
+    assert_null (neighbourhood.url_force);
+    assert_null (neighbourhood.population);
 }
 
 public void test_getPoliceForceNeighbourhood () {
@@ -54,9 +56,10 @@ public void test_getPoliceForceNeighbourhood () {
     assert_cmpstr (result.name, CompareOperator.EQ, "Suburb Name");
     assert_cmpstr (result.description, CompareOperator.EQ, "blah blah blah");
     assert_nonnull (result.centre);
-    assert_cmpstr (result.centre, CompareOperator.EQ, "12345");
-    assert_cmpstr (result.centre, CompareOperator.EQ, "12345");
+    assert_cmpstr (result.centre.latitude, CompareOperator.EQ, "12345");
+    assert_cmpstr (result.centre.longitude, CompareOperator.EQ, "12345");
     assert_cmpstr (result.url_force, CompareOperator.EQ, "http://www.local.police.uk/town");
+    assert_cmpstr (result.population, CompareOperator.EQ, "0");
 }
 
 public void test_getStreetCrimeByLocation () {
@@ -67,6 +70,13 @@ public void test_getStreetCrimeByLocation () {
     assert_nonnull (result);
 
     assert_cmpuint ( result.length (), CompareOperator.EQ, 2);
+    foreach (var c in result) {
+        assert_true ( c is Crime );
+        assert_nonnull (c.id);
+        assert_nonnull (c.category);
+        assert_nonnull (c.location);
+        assert_nonnull (c.month);
+    }
 }
 
 public void test_getAllPoliceForces () {
