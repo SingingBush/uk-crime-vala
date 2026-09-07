@@ -29,7 +29,13 @@ public class Neighbourhood : NamedData {
 
     public string url_force { get; set; }
 
-    public Location centre { get; set; }
+    public Location centre { get; set; } // null when in a list of neighbourhoods
+
+    public Gee.HashMap<string,string> contact_details { get; set; }
+
+    public Gee.List<Gee.HashMap<string,string>> links { get; set; }
+
+    public Gee.List<Gee.HashMap<string,string>> locations { get; set; }
 }
 
 public class SeniorOfficer : GLib.Object {

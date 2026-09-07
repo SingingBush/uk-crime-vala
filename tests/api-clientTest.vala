@@ -2,6 +2,47 @@ using GLib;
 
 private const string TEST_FORCE_ID = "FORCE-ID";
 
+public void test_getLastUpdatedDate () {
+    var port = Environment.get_variable ("WIREMOCK_PORT") ?? "8080";
+    var api = new PoliceApi ("http://localhost:" + port + "/api");
+
+    var result = api.getLastUpdatedDate ();
+    assert_nonnull (result);
+    assert_cmpstr ( result, CompareOperator.EQ, "2026-07-01");
+}
+
+public void test_getPoliceForceSeniorOfficers () {
+    var port = Environment.get_variable ("WIREMOCK_PORT") ?? "8080";
+    var api = new PoliceApi ("http://localhost:" + port + "/api");
+
+    var result = api.getPoliceForceSeniorOfficers (TEST_FORCE_ID);
+    assert_nonnull (result);
+}
+
+public void test_getPoliceForceNeighbourhoods () {
+    var port = Environment.get_variable ("WIREMOCK_PORT") ?? "8080";
+    var api = new PoliceApi ("http://localhost:" + port + "/api");
+
+    var result = api.getPoliceForceNeighbourhoods (TEST_FORCE_ID);
+    assert_nonnull (result);
+}
+
+public void test_getPoliceForceNeighbourhood () {
+    var port = Environment.get_variable ("WIREMOCK_PORT") ?? "8080";
+    var api = new PoliceApi ("http://localhost:" + port + "/api");
+
+    var result = api.getPoliceForceNeighbourhood (TEST_FORCE_ID, "suburb");
+    assert_nonnull (result);
+}
+
+public void test_streetCrimeByLocation () {
+    var port = Environment.get_variable ("WIREMOCK_PORT") ?? "8080";
+    var api = new PoliceApi ("http://localhost:" + port + "/api");
+
+    var result = api.streetCrimeByLocation ("lat", "lng");
+    assert_nonnull (result);
+}
+
 public void test_getAllPoliceForces () {
     var port = Environment.get_variable ("WIREMOCK_PORT") ?? "8080";
     var api = new PoliceApi ("http://localhost:" + port + "/api");

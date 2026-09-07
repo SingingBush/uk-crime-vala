@@ -31,11 +31,11 @@ class PoliceApi {
     /**
      * @see <a href="https://data.police.uk/docs/method/senior-officers/">API doc: Senior officers</a>
      *
-     * @param policeForce the {@link PoliceForce}
+     * @param policeForceId the ID of the {@link PoliceForce}
      * @return a list of senior officers for the given police force
      */
-    public owned GLib.List<SeniorOfficer> getPoliceForceSeniorOfficers(PoliceForce policeForce) throws GLib.Error {
-        string json_body = makeGetRequest(@"$(this.baseUrl)/forces/$(policeForce.id)/people");
+    public owned GLib.List<SeniorOfficer> getPoliceForceSeniorOfficers(string policeForceId) throws GLib.Error {
+        string json_body = makeGetRequest(@"$(this.baseUrl)/forces/$(policeForceId)/people");
 
         Json.Parser p = new Json.Parser();
 
@@ -48,7 +48,7 @@ class PoliceApi {
         });
         p.load_from_data(json_body, json_body.length);
 
-        GLib.info(@"API returned $(officers.length()) officers for $(policeForce.id)");
+        GLib.info(@"API returned $(officers.length()) officers for $(policeForceId)");
 
         return (owned) officers;
     }

@@ -1,0 +1,54 @@
+{
+    "name": "crimes",
+    "request": {
+        "method": "GET",
+        "url": "/api/crimes-street/all-crime"
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": [
+            {
+                "category": "anti-social-behaviour",
+                "persistent_id": "",
+                "location_subtype": "",
+                "id": 116208998,
+                "location": {
+                    "latitude": "52.632805",
+                    "street": {
+                        "id": 1738842,
+                        "name": "On or near Campbell Street"
+                    }, 
+                    "longitude": "-1.124819"
+                }, 
+                "context": "",
+                "month": "2024-01",
+                "location_type": "Force",
+                "outcome_status": null
+            }, 
+            {
+                "category": "bicycle-theft",
+                "persistent_id": "fef00968b9b066ad38660e64f6e746eb1dfc27b22af4a023924daebfcea2ad39",
+                "location_subtype": "",
+                "id": 116201252,
+                "location": {
+                    "latitude": "52.629043",
+                    "street": {
+                        "id": 1737492,
+                        "name": "On or near Roman Street"
+                    },
+                    "longitude": "-1.148962"
+                },
+                "context": "",
+                "month": "2024-01",
+                "location_type": "Force",
+                "outcome_status": {
+                    "category": "Investigation complete; no suspect identified",
+                    "date": "2024-01"
+                }
+            }
+        ],
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

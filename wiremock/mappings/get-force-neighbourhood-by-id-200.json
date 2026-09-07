@@ -1,0 +1,42 @@
+{
+    "name": "forces",
+    "request": {
+        "method": "GET",
+        "url": "/api/forces/FORCE-ID/suburb"
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": {
+            "id": "FORCE-ID",
+            "name": "Test Force Name",
+            "description": "blah blah blah",
+            "centre": {
+                "latitude": "12345",
+                "longitude": "12345"
+            },
+            "contact_details": {
+                "telephone": "999",
+                "email": ""
+            },
+            "links": [
+                {
+                    "url": "https://localcouncil.gov.uk/",
+                    "description": null,
+                    "title": "Local Council"
+                }
+            ],
+            "locations": [
+                {
+                    "name": "Police Station",
+                    "description": null,
+                    "telephone": "999"
+                }
+            ],
+            "url_force": "http://www.local.police.uk/town",
+            "population": "0"
+        },
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}
