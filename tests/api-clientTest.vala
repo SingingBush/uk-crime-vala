@@ -72,7 +72,7 @@ public void test_getStreetCrimeByLocation () {
     assert_cmpuint ( result.length (), CompareOperator.EQ, 2);
     foreach (var c in result) {
         assert_true ( c is Crime );
-        assert_cmpuint (c.id, CompareOperator.GT, 100_000_000);
+        assert_cmpuint (c.id, CompareOperator.GT, 100000000);
         assert_nonnull (c.category);
         assert_nonnull (c.location);
         assert_nonnull (c.month);
