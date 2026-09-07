@@ -259,7 +259,7 @@ class MainWindow : ApplicationWindow {
                     viewport.set_location(double.parse (n.centre.latitude), double.parse (n.centre.longitude));
                     viewport.set_zoom_level(12.0);
 
-                    GLib.List<Crime> crimes = this.api.streetCrimeByLocation(n.centre.latitude, n.centre.longitude);
+                    GLib.List<Crime> crimes = this.api.getStreetCrimeByLocation(n.centre.latitude, n.centre.longitude);
 
                     crimes.foreach((c) => {
                         GLib.debug("crime %u : %s", c.id, c.category);

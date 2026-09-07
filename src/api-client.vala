@@ -94,7 +94,7 @@ class PoliceApi {
         return neighbourhood;
     }
 
-    public owned GLib.List<Crime> streetCrimeByLocation(string latitude, string longitude) throws GLib.Error {
+    public owned GLib.List<Crime> getStreetCrimeByLocation(string latitude, string longitude) throws GLib.Error {
         string json_body = makeGetRequest(@"$(this.baseUrl)/crimes-street/all-crime?lat=$(latitude)&lng=$(longitude)");
 
         Json.Parser p = new Json.Parser();

@@ -53,14 +53,14 @@ public void test_getPoliceForceNeighbourhood () {
     assert_cmpstr (result.id, CompareOperator.EQ, "suburb-id");
     assert_cmpstr (result.name, CompareOperator.EQ, "Suburb Name");
     assert_cmpstr (result.description, CompareOperator.EQ, "blah blah blah");
-    assert_nonnull (neighbourhood.centre);
+    assert_nonnull (result.centre);
 }
 
-public void test_streetCrimeByLocation () {
+public void test_getStreetCrimeByLocation () {
     var port = Environment.get_variable ("WIREMOCK_PORT") ?? "8080";
     var api = new PoliceApi ("http://localhost:" + port + "/api");
 
-    var result = api.streetCrimeByLocation ("lat", "lng");
+    var result = api.getStreetCrimeByLocation ("lat", "lng");
     assert_nonnull (result);
 
     assert_cmpuint ( result.length (), CompareOperator.EQ, 2);
