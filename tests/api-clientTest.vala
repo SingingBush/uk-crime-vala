@@ -40,7 +40,7 @@ public void test_getPoliceForceNeighbourhoods () {
 
     assert_cmpstr (neighbourhood.id, CompareOperator.EQ, "suburb-id");
     assert_cmpstr (neighbourhood.name, CompareOperator.EQ, "Suburb Name");
-    assert_cmpstr (neighbourhood.description, CompareOperator.EQ, "blah blah blah");
+    assert_null (neighbourhood.description);
     assert_null (neighbourhood.centre);
 }
 
@@ -54,6 +54,9 @@ public void test_getPoliceForceNeighbourhood () {
     assert_cmpstr (result.name, CompareOperator.EQ, "Suburb Name");
     assert_cmpstr (result.description, CompareOperator.EQ, "blah blah blah");
     assert_nonnull (result.centre);
+    assert_cmpstr (result.centre, CompareOperator.EQ, "12345");
+    assert_cmpstr (result.centre, CompareOperator.EQ, "12345");
+    assert_cmpstr (result.url_force, CompareOperator.EQ, "http://www.local.police.uk/town");
 }
 
 public void test_getStreetCrimeByLocation () {
