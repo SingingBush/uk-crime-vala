@@ -17,7 +17,7 @@ Also, there is a book named [Introducing Vala Programming](https://www.apress.co
 You'll need a few dependencies as well as the Vala comiler and [Meson](https://mesonbuild.com).
 
 ```
-sudo dnf install vala libvala gtk4-devel libsoup3-devel json-glib-devel libgee-devel -y
+sudo dnf install vala libvala gtk4-devel libsoup3-devel json-glib-devel libgee-devel libshumate-devel -y
 ```
 
 The project is built using [Meson](https://mesonbuild.com)
@@ -38,13 +38,13 @@ To install to your system use `meson install -C build`
 To compile with the Vala Compiler directly use:
 
 ```
-valac --pkg gtk4 --pkg gee-0.8 --pkg libsoup-3.0 --pkg json-glib-1.0 src/*.vala --output=ukcrime-gtk4
+valac --pkg gtk4 --pkg gee-0.8 --pkg libsoup-3.0 --pkg json-glib-1.0 --pkg shumate-1.0 src/*.vala --output=ukcrime-gtk4
 ```
 
 For compiling a binary to use with a debugger use:
 
 ```
-valac -g --save-temps --pkg gtk4 --pkg gee-0.8 --pkg libsoup-3.0 --pkg json-glib-1.0 src/*.vala --output=ukcrime-gtk4-debug
+valac -g --save-temps --pkg gtk4 --pkg gee-0.8 --pkg libsoup-3.0 --pkg json-glib-1.0 --pkg shumate-1.0 src/*.vala --output=ukcrime-gtk4-debug
 ```
 
 If the binary has been built without meson you should also install the gschema xml to `/usr/share/glib-2.0/schemas/` (meson handles this):

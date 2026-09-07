@@ -28,6 +28,8 @@ public class Neighbourhood : NamedData {
     public string population { get; set; }
 
     public string url_force { get; set; }
+
+    public Location centre { get; set; }
 }
 
 public class SeniorOfficer : GLib.Object {

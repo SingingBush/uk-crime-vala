@@ -56,11 +56,11 @@ class PoliceApi {
     /**
      * @see <a href="https://data.police.uk/docs/method/neighbourhoods/">API doc: List of neighbourhoods for a force</a>
      *
-     * @param policeForce the {@link PoliceForce}
+     * @param policeForceId the ID of the {@link PoliceForce}
      * @return a list of neighbourhoods
      */
-    public owned GLib.List<Neighbourhood> getPoliceForceNeighbourhoods(PoliceForce policeForce) throws GLib.Error{
-        string json_body = makeGetRequest(@"$(this.baseUrl)/$(policeForce.id)/neighbourhoods");
+    public owned GLib.List<Neighbourhood> getPoliceForceNeighbourhoods(string policeForceId) throws GLib.Error{
+        string json_body = makeGetRequest(@"$(this.baseUrl)/$(policeForceId)/neighbourhoods");
 
         Json.Parser p = new Json.Parser();
 
@@ -81,15 +81,15 @@ class PoliceApi {
     /**
      * @see <a href="https://data.police.uk/docs/method/neighbourhood/">API doc: Specific neighbourhood</a>
      *
-     * @param policeForce the {@link PoliceForce}
+     * @param policeForceId the ID of the {@link PoliceForce}
      * @param id the neighbourhood id
      * @return a neighbourhood by id
      */
-    public Neighbourhood getPoliceForceNeighbourhood(PoliceForce policeForce, string id) throws GLib.Error {
-        string json_body = makeGetRequest(@"$(this.baseUrl)/$(policeForce.id)/id");
+    public Neighbourhood getPoliceForceNeighbourhood(string policeForceId, string id) throws GLib.Error {
+        string json_body = makeGetRequest(@"$(this.baseUrl)/$(policeForceId)/$(id)");
         Neighbourhood neighbourhood = Json.gobject_from_data(typeof(Neighbourhood), json_body, json_body.length) as Neighbourhood;
 
-        GLib.info("API returned neighbourhood for %s : %s", policeForce.id, id);
+        GLib.info("API returned neighbourhood for %s : %s", policeForceId, id);
 
         return neighbourhood;
     }
