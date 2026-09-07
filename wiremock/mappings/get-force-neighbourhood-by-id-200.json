@@ -2,13 +2,13 @@
     "name": "forces",
     "request": {
         "method": "GET",
-        "url": "/api/forces/FORCE-ID/suburb"
+        "url": "/api/forces/FORCE-ID/suburb-id"
     },
     "response": {
         "status": 200,
         "jsonBody": {
-            "id": "FORCE-ID",
-            "name": "Test Force Name",
+            "id": "suburb-id",
+            "name": "Suburb Name",
             "description": "blah blah blah",
             "centre": {
                 "latitude": "12345",
