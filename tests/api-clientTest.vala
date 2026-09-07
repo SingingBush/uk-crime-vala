@@ -20,7 +20,7 @@ public void test_getPoliceForceSeniorOfficers () {
 
     assert_cmpuint ( result.length (), CompareOperator.EQ, 1);
 
-    SeniorOfficer officer = result[0] as SeniorOfficer;
+    SeniorOfficer officer = result.nth_data (0) as SeniorOfficer;
     assert_nonnull (officer);
     assert_cmpstr (officer.name, CompareOperator.EQ, "Bobby");
     assert_cmpstr (officer.rank, CompareOperator.EQ, "Flat Foot");
@@ -35,7 +35,7 @@ public void test_getPoliceForceNeighbourhoods () {
 
     assert_cmpuint ( result.length (), CompareOperator.EQ, 1);
 
-    Neighbourhood neighbourhood = result[0] as Neighbourhood;
+    Neighbourhood neighbourhood = result.nth_data (0) as Neighbourhood;
     assert_nonnull (neighbourhood);
 
     assert_cmpstr (neighbourhood.id, CompareOperator.EQ, "suburb-id");
