@@ -22,6 +22,7 @@ public class PoliceForceDetails : PoliceForce {
     public string description { get; set; } // either null or a description which may have basic html tags such as <p>
 }
 
+// only ID and Name are populated when getting a list of neighbourhoods
 public class Neighbourhood : NamedData {
     public string description { get; set; } // usually null
 

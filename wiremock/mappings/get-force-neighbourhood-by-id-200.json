@@ -2,7 +2,7 @@
     "name": "suburb by id",
     "request": {
         "method": "GET",
-        "url": "/api/forces/FORCE-ID/suburb-id"
+        "url": "/api/FORCE-ID/suburb-id"
     },
     "response": {
         "status": 200,

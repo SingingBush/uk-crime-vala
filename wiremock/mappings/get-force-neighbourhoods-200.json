@@ -2,19 +2,14 @@
     "name": "neighbourhood by id",
     "request": {
         "method": "GET",
-        "url": "/api/forces/FORCE-ID/neighbourhoods"
+        "url": "/api/FORCE-ID/neighbourhoods"
     },
     "response": {
         "status": 200,
         "jsonBody": [
             {
                 "id": "suburb-id",
-                "name": "Suburb Name",
-                "description": "blah blah blah",
-                "centre": {
-                    "latitude": "12345",
-                    "longitude": "12345"
-                }
+                "name": "Suburb Name"
             }
         ],
         "headers": {
